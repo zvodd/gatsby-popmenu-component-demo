@@ -1,0 +1,7 @@
+.side-menu.active{
+    display: initial;
+}
+
+.side-menu{
+    display: none;
+}
