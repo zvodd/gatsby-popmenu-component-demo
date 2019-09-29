@@ -1,7 +1,77 @@
+header {
+    background: rebeccapurple;
+    margin-bottom: 1.45rem;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.headbar{
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 1.45rem 5px;
+}
+
+.headbar h1 {
+    margin: 0
+}
+
+.headbar a{
+    color: white;
+    text-decoration: none;
+}
+
+.menu-togglewrap{}
+
+
+.menu-button{
+    cursor: pointer;
+    background-color: #EEE;
+    text-align: center;
+    line-height: 2em;
+    padding: 0;
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.main-button{
+    height: 32px;
+    width: 32px;
+    background-image: url('../images/menuIcon.png');
+}
+.close-button{
+    height: 32px;
+    width: 32px;
+    background-image: url('../images/menuClose.png');
+    background-color: initial;
+}
+.side-menu .close-button{
+    margin-left: auto;
+    padding-bottom: 2px;
+}
+
 .side-menu.active{
-    display: initial;
+    display: flex;
 }
 
 .side-menu{
     display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    padding: 10px 20px;
+    border: 2px solid #baa4d0;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.side-menu ul {
+    margin: 10px 0;
+    border-top:  rebeccapurple thin solid;
+}
+.side-menu li{
+    list-style: none;
 }

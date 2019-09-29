@@ -5,9 +5,11 @@ function HidableMenu({isActive, toggleAction}) {
   );
   return (
       <div className={getClass()} > 
-        <button onClick={()=>{toggleAction(false)}}> Close the Menu </button>
+      <div className="menu-button close-button" onClick={()=>{toggleAction(false)}}/>
         <div>
-            Menu Item
+            <li>Menu Item</li>
+            <li>Menu Item</li>
+            <li>Menu Item</li>
         </div>
       </div>
   );
