@@ -38,39 +38,41 @@ const createProductPages = ({ graphql, actions }) => {
   ).then(result => {
     if (result.errors) {
       throw result.errors
-  }
+    }
     result.data.allMarkdownRemark.nodes.forEach(node => {
+    const fp = node.fileAbsolutePath;
+    const dir = fp.slice(0, fp.lastIndexOf('/'))
+    const galleryQuery = graphql(`
+        {
+          allFile(filter: {absolutePath: {glob: "`+ dir + "/**" + `"}, extension: {in: ["jpg","png"]}}) {
+            edges {
+              node {
+                id
+                publicURL
+                name
+              }
+            }
+          }
+        }
+    `).then(result => {
+        if (result.errors) {
+          throw result.errors
+        }
+        const images = result.data.allFile.edges.map((res) => {
+            return {src: res.node.publicURL,  name: res.node.name}
+        })
+        console.log("images", images)
         createPage({
-                path: node.frontmatter.path, // required
-                component: slash(productTemplate),
-                context: {
-                  title:  node.frontmatter.title,
-                  id: node.id
-                },
-          })
+            path: node.frontmatter.path, // required
+            component: slash(productTemplate),
+            context: {
+              title:  node.frontmatter.title,
+              id: node.id,
+              images
+            }
+        })
     })
-
-    // result.data.allMarkdownRemark.nodes.forEach(node => {
-    //     let fp = node.fileAbsolutePath;
-    //     let id = node.id;
-
-    //     d = fp.slice(0, fp.lastIndexOf('/'))
-    //     up1 = d.slice(d.lastIndexOf('/'))
-    //     return {dir:d, id}
-    // })
-
-    // // Create blog posts pages.
-    // result.data.allMarkdownRemark.edges.forEach(edge => {
-    //   createPage({
-    //     path: edge.node.fields.slug, // required
-    //     component: slash(blogPostTemplate),
-    //     context: {
-    //       slug: edge.node.fields.slug,
-    //       highlight: edge.node.frontmatter.highlight,
-    //       shadow: edge.node.frontmatter.shadow,
-    //     },
-    //   })
-    // })
+  })
   })
 }
 
